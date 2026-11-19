@@ -38,6 +38,6 @@ An Exegol discord has been created to facilitate exchanges between the community
 .. raw:: html
 
     <div align="center">
-        <a href="https://discord.gg/cXThyp7D6P" title="Join us on Discord"><img src="https://raw.githubusercontent.com/ghecko/mandalore-docs/fork-before-v5/.assets/discord_join_us.png" width="300"></a>
+        <a href="https://discord.gg/cXThyp7D6P" title="Join us on Discord"><img src="https://raw.githubusercontent.com/ThePorgs/Exegol-docs/main/.assets/discord_join_us.png" width="300"></a>
         <br/><br/>
     </div>

@@ -6,7 +6,7 @@ Exegol: professional hacking setup
 .. raw:: html
 
     <div align="center">
-      <img alt="exegol logo" width="600" src="https://raw.githubusercontent.com/ghecko/mandalore-docs/fork-before-v5/.assets/rounded_social_preview.png">
+      <img alt="exegol logo" width="600" src="https://raw.githubusercontent.com/ThePorgs/Exegol-docs/main/.assets/rounded_social_preview.png">
       <br><br>
       <a target="_blank" rel="noopener noreferrer" href="https://pypi.org/project/Exegol" title=""><img src="https://img.shields.io/pypi/v/Exegol?color=informational" alt="pip package version"></a>
       <img alt="Python3.7" src="https://img.shields.io/badge/Python-3.7+-informational">
@@ -35,7 +35,7 @@ Exegol: professional hacking setup
        <img alt="Black Hat USA 2023" src="https://img.shields.io/badge/Black%20Hat%20Arsenal-USA%202023-blueviolet">
       </a>
       <br><br>
-      <a target="_blank" rel="noopener noreferrer" href="https://discord.gg/cXThyp7D6P" title="Join us on Discord"><img src="https://raw.githubusercontent.com/ghecko/mandalore-docs/fork-before-v5/.assets/discord_join_us.png" width="150" alt="Join us on Discord"></a>
+      <a target="_blank" rel="noopener noreferrer" href="https://discord.gg/cXThyp7D6P" title="Join us on Discord"><img src="https://raw.githubusercontent.com/ThePorgs/Exegol-docs/main/.assets/discord_join_us.png" width="150" alt="Join us on Discord"></a>
       <br><br>
     </div>
 
