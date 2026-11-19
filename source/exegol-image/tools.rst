@@ -42,7 +42,7 @@ Releases
 Latest nightly
 --------------
 
-Below is the list of tools featured in the latest nightly (AMD64) image.
+Below is the list of tools featured in the latest Mandalore build (full 2.0.0, AMD64, Debian 13).
 
 .. csv-table::
     :file: /assets/installed_tools/lists/latest_nightly_amd64.csv
