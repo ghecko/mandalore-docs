@@ -4,7 +4,7 @@ Contributors
 
 This part of the documentation is meant for Exegol contributors, those who write code and open pull requests. If adds up to the :doc:`users </community/users>` documentation.
 
-First things first, once you know on what module you want to contribute (`wrapper <https://github.com/ThePorgs/Exegol>`_, `images <https://github.com/ThePorgs/Exegol-images>`_, `documentation <https://github.com/ThePorgs/Exegol-docs>`_, `resources <https://github.com/ThePorgs/Exegol-resources>`_, etc.) `fork it <https://docs.github.com/en/get-started/quickstart/fork-a-repo>`_, `checkout <https://git-scm.com/docs/git-checkout>`_ to the ``dev`` branch, then come back to this page to start coding.
+First things first, once you know on what module you want to contribute (`wrapper <https://github.com/ghecko/mandalore>`_, `images <https://github.com/ghecko/mandalore-images>`_, `documentation <https://github.com/ghecko/mandalore-docs>`_, `resources <https://github.com/ghecko/mandalore-resources>`_, etc.) `fork it <https://docs.github.com/en/get-started/quickstart/fork-a-repo>`_, `checkout <https://git-scm.com/docs/git-checkout>`_ to the ``dev`` branch, then come back to this page to start coding.
 
 .. contents::
     :local:
@@ -12,7 +12,7 @@ First things first, once you know on what module you want to contribute (`wrappe
 Documentation
 ==============
 
-A new feature, whether it's on the wrapper, images, or any other module, must be documented accordingly. Make sure to open a pull request to the appropriate `Exegol docs <https://github.com/ThePorgs/Exegol-docs>`_ branch on top of your wrapper/images/whatever pull request.
+A new feature, whether it's on the wrapper, images, or any other module, must be documented accordingly. Make sure to open a pull request to the appropriate `Exegol docs <https://github.com/ghecko/mandalore-docs>`_ branch on top of your wrapper/images/whatever pull request.
 
 ..  list-table:: Exegol-docs branches
     :header-rows: 1
@@ -22,9 +22,9 @@ A new feature, whether it's on the wrapper, images, or any other module, must be
     * - main
       - nothing gets pushed there. This branch is made to merge with the other branches.
     * - dev-wrapper
-      - Related to the wrapper (`Exegol <https://github.com/ThePorgs/Exegol>`_ )
+      - Related to the wrapper (`Exegol <https://github.com/ghecko/mandalore>`_ )
     * - dev-images
-      - Related to the images (`Exegol-images <https://github.com/ThePorgs/Exegol-images>`_ )
+      - Related to the images (`Exegol-images <https://github.com/ghecko/mandalore-images>`_ )
     * - dev
       - General purpose
 
@@ -48,7 +48,7 @@ If you want to contribute to this part of the project, there are some things you
 Adding a new tool
 ~~~~~~~~~~~~~~~~~
 
-In order to add a new tool to an image, here is how it goes. First, you need to figure out in what package your tool installation function must go to: `packages <https://github.com/ThePorgs/Exegol-images/tree/main/sources/install>`_.
+In order to add a new tool to an image, here is how it goes. First, you need to figure out in what package your tool installation function must go to: `packages <https://github.com/ghecko/mandalore-images/tree/main/sources/install>`_.
 
 Function structure
 ------------------

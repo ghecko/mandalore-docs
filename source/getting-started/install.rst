@@ -101,7 +101,7 @@ Additional dependencies may be required depending on the host OS.
 
             Your exegol installation cannot be stored under ``/opt`` directory when using OrbStack (`due to OrbStack limitations <https://github.com/orbstack/orbstack/issues/435>`_).
 
-            This support is still in beta, feel free to open issues on `GitHub <https://github.com/ThePorgs/Exegol/issues/new/choose>`__ if you encounter any bugs.
+            This support is still in beta, feel free to open issues on `GitHub <https://github.com/ghecko/mandalore/issues/new/choose>`__ if you encounter any bugs.
 
     ..  group-tab:: Windows
 
@@ -174,7 +174,7 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
 
         .. code-block:: bash
 
-            git clone "https://github.com/ThePorgs/Exegol"
+            git clone "https://github.com/ghecko/mandalore"
 
         .. tip::
 
@@ -182,7 +182,7 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
 
            .. code-block:: bash
 
-               git clone --shallow-since="2023/05/08" "https://github.com/ThePorgs/Exegol"
+               git clone --shallow-since="2023/05/08" "https://github.com/ghecko/mandalore"
 
         If you have access to docker directly as a user, you can install the requirements only for your current user
         otherwise the requirements must be installed as root to run Exegol with sudo.

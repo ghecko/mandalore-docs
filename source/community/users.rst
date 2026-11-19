@@ -12,10 +12,10 @@ Opening issues
 
 Create an issue in the correct repository:
 
-* For any problem concerning `Exegol WRAPPER <https://github.com/ThePorgs/Exegol/issues>`__ (the exegol command).
-* For any problem concerning `Exegol IMAGE <https://github.com/ThePorgs/Exegol-images/issues>`__ (the exegol environment).
-* For any problem concerning `Exegol RESOURCE <https://github.com/ThePorgs/Exegol-resources/issues>`__ (the exegol offline resources).
-* For any problem concerning `Exegol DOCUMENTATION <https://github.com/ThePorgs/Exegol-docs/issues>`__ (the exegol documentation).
+* For any problem concerning `Exegol WRAPPER <https://github.com/ghecko/mandalore/issues>`__ (the exegol command).
+* For any problem concerning `Exegol IMAGE <https://github.com/ghecko/mandalore-images/issues>`__ (the exegol environment).
+* For any problem concerning `Exegol RESOURCE <https://github.com/ghecko/mandalore-resources/issues>`__ (the exegol offline resources).
+* For any problem concerning `Exegol DOCUMENTATION <https://github.com/ghecko/mandalore-docs/issues>`__ (the exegol documentation).
 
 Roadmap
 =======
@@ -38,6 +38,6 @@ An Exegol discord has been created to facilitate exchanges between the community
 .. raw:: html
 
     <div align="center">
-        <a href="https://discord.gg/cXThyp7D6P" title="Join us on Discord"><img src="https://raw.githubusercontent.com/ThePorgs/Exegol-docs/main/.assets/discord_join_us.png" width="300"></a>
+        <a href="https://discord.gg/cXThyp7D6P" title="Join us on Discord"><img src="https://raw.githubusercontent.com/ghecko/mandalore-docs/fork-before-v5/.assets/discord_join_us.png" width="300"></a>
         <br/><br/>
     </div>
