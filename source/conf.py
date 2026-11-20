@@ -7,9 +7,9 @@ import datetime
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Exegol'
-copyright = f'{datetime.datetime.now().year}, Shutdown & Dramelac'
-author = 'Shutdown & Dramelac'
+project = 'Mandalore'
+copyright = f'{datetime.datetime.now().year}, Mandalore contributors (fork of Exegol by Shutdown & Dramelac)'
+author = 'Mandalore contributors'
 # release = '4.1.0'  # Disable version for doc
 
 # -- General configuration ---------------------------------------------------
@@ -18,8 +18,7 @@ author = 'Shutdown & Dramelac'
 extensions = ['myst_parser',
               'sphinx_tabs.tabs',
               'sphinx_copybutton',
-              "sphinxcontrib.jquery",
-              'sphinxcontrib.googleanalytics']
+              "sphinxcontrib.jquery"]
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -32,13 +31,9 @@ exclude_patterns = []
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
-html_favicon = '_static/logo_round.ico'
 
 # Tabs options
 sphinx_tabs_disable_tab_closing = True
-
-googleanalytics_id = "G-5TVGLW8S8T"
-googleanalytics_enabled = True
 
 def setup(app):
   app.add_css_file("css/custom.css")

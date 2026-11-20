@@ -11,7 +11,7 @@ Releases
 --------
 
 .. hint::
-    The lists featured here are automatically generated. Exegol features CI/CD pipelines that build the images. At build, most tools are tested. If at least one test fails, the image doesn't get published.
+    The lists featured here are automatically generated. Mandalore features CI/CD pipelines that build the images. At build, most tools are tested. If at least one test fails, the image doesn't get published.
 
 .. csv-table::
     :file: /assets/installed_tools/nightly.csv

@@ -1,7 +1,7 @@
 Services list
 =============
 
-This section lists the services that can be used in Exegol containers and their associated default ports.
+This section lists the services that can be used in Mandalore containers and their associated default ports.
 
 .. note::
 

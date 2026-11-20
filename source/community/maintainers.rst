@@ -2,7 +2,7 @@
 Maintainers
 ===========
 
-This part of the documentation is meant for Exegol maintainers. It adds up to the :doc:`contributors </community/contributors>` documentation.
+This part of the documentation is meant for Mandalore maintainers. It adds up to the :doc:`contributors </community/contributors>` documentation.
 
 .. contents::
     :local:
@@ -11,438 +11,105 @@ Wrapper release
 ===============
 
 .. hint::
-    The wrapper documentation must be aligned with the wrapper features. . The docs PR can be merged once the wrapper is released.
+    The wrapper documentation must be aligned with the wrapper features. The docs PR can be merged once the wrapper is released.
 
 Preparation
 -----------
 
-The first step is to update the project and sub-modules, meaning pointing the exegol-images and exegol-resources sub-modules to the latest master version.
-Even if the wrapper is able to auto-update itself, it is always better to keep the base reference at least up to date.
+#. Update the wrapper repository and its submodules (``mandalore-images`` and ``mandalore-resources``) to the commits that must be shipped with the release, and commit the submodule updates.
 
-..  tabs::
+   .. code-block:: bash
 
-    ..  tab:: With git
+       git pull
+       git submodule update --init --remote
+       git add mandalore-images mandalore-resources
 
-        * Update current wrapper repo:
+#. Run the checks (the same as the CI):
 
-        .. code-block:: bash
+   .. code-block:: bash
 
-            git pull
+       mypy ./mandalore/ --ignore-missing-imports --check-untyped-defs
+       mypy ./mandalore.py --ignore-missing-imports --check-untyped-defs
+       python3 -m pytest
 
-        * Update git submodules and checkout to **main** branch for release:
+#. Review the release configuration:
 
-        .. code-block:: bash
+   * ``mandalore/config/ConstantConfig.py``: version number (``__version__``, without alpha or beta tag for a release).
+   * ``mandalore/utils/imgsync/spawn.sh``: must contain a line with the script current version in the following format: ``# Spawn Version:2``.
+   * ``tests/mandalore_test.py``, ``README.md`` and this documentation.
 
-            git -C exegol-docker-build checkout main
-            git -C exegol-docker-build pull
-            git -C exegol-resources checkout main
-            git -C exegol-resources pull
+#. Check that the package builds and contains the image scripts:
 
-    ..  tab:: With Exegol
+   .. code-block:: bash
 
-        Update to the latest version of the **main** branches (checkout if needed, **except for the wrapper** which remains in branch dev)
+       uv build   # or: python3 -m build
+       unzip -l dist/*.whl | grep -E "spawn.sh|entrypoint.sh"
 
-        .. code-block:: bash
+Publish
+-------
 
-            exegol update -v
-
-.. important::
-    Don't forget to **reload and commit** any **submodule update** at this step !
-
-
-Local tests & build
-~~~~~~~~~~~~~~~~~~~
-
-First, test the code with mypy:
+Once the pull request is merged on the default branch, push a version tag (``X.Y.Z``) to run the `release workflow <https://github.com/ghecko/mandalore/actions/workflows/entrypoint_release.yml>`_:
 
 .. code-block:: bash
 
-    mypy exegol.py --ignore-missing-imports --check-untyped-defs
+    git tag -s 4.4.0 -m '4.4.0'
+    git push origin 4.4.0
 
-You can execute this one-liner to check the project and build it.
+The release workflow runs the tests and builds the Python distributions. Publishing to PyPI is **disabled** until the PyPI project and its trusted publisher are configured: set the repository variable ``PYPI_PUBLISH`` to ``true`` to enable it.
 
-.. warning::
-    **Require** `build <https://packaging.python.org/en/latest/tutorials/packaging-projects/#generating-distribution-archives>`__ package installed!
-
-.. hint::
-    Exegol can only be published through a **source** build distribution because of the source code files for building local images.
-
-.. code-block:: bash
-
-    python3 setup.py clean test && \
-       (rm -rf Exegol.egg-info && python3 -m build --sdist) || \
-       echo "Some tests failed, check your code and requirements before publishing!"
-
-Config reviews
-~~~~~~~~~~~~~~
-
-* Review exegol.config.ConstantConfig variables
-
-    * Change version number ! (remove the alpha or beta tag at the end of the version number)
-* Review exegol.utils.imgsync.spawn.sh version
-
-    * Must contain a line with the script current version in the following format: ``# Spawn Version:2`` (without alpha or beta letter)
-* Review documentation on Exegol-docs/dev-wrapper
-* Review README.md
-
-* Create PR (or put it out of draft mode)
-
-.. important::
-    The Pull-Request must be **already** created and **NOT** be in draft state before pushing the latest stable version.
-
-* Commit and push stable latest config
-
-Review and publish
-------------------
-
-The PR is now ready to be peer-review and then merge on Github.
-
-Once merged to master, a tag must be deploy to run the release pipeline. The github action pipeline will automatically build and publish:
-
-Exemple to release version ``4.3.5``:
-
-.. code-block:: bash
-
-    git checkout master
-    git pull
-    git tag -s 4.3.5 -m '4.3.5'
-    git push --tags
-
-Check if the release pipeline works as expected: `Release pipeline <https://github.com/ghecko/mandalore/actions/workflows/entrypoint_release.yml>`_
-
-Post deploy
------------
-
-* Create new github **release** with **new** version tag
-
-After releasing a new stable version on the wrapper, we must update the dev version to stay in a beta version
-
-* Fast-forward dev branch to the latest master commit:
-
-.. code-block:: bash
-
-    git checkout dev
-    git merge master --ff-only
-    git push
-
-* Change the wrapper version on the dev branch to ``x.y.zb1``
-
-* Upgrade tests.test_exegol.py version number to the next version build to avoid future mistake
-* Commit updates
+Finally, create the GitHub **release** for the new tag.
 
 Images release
 ==============
 
-.. hint::
-    The images documentation must be aligned with the images features. Make sure to add code to the appropriate `Exegol docs <https://github.com/ghecko/mandalore-docs>`_ branch and have a pull request ready. The docs PR can be merged once the images are released.
+Images are built locally and pushed to the GitHub Container Registry (``ghcr.io/ghecko/mandalore``).
 
-Prepare changes
----------------
+Build
+-----
 
-The first step consists in preparing the ``dev`` branch for merge.
-
-1. create a pull request ``dev -> main`` named ``Release X.Y.Z`` (``Release X.Y.ZbI`` is also accepted, X, Y, Z and I being numbers. Creating this pull request will trigger the **pre-release** workflows. The PR comment must indicate all major changes.
-
-2. edit the ``dev`` branch until the pull requests checks (pipeline) all pass, effectively publishing all images to the preproduction Dockerhub registry
-
-3. once all checks are good, the PR needs to be approved by a maintainer.
-
-Merge changes
--------------
-
-Once the PR is approved and ready for merge, it can be merged
-
-1. merge the PR with **Create a merge commit**
-
-2. Synchronize the ``dev`` branch with the latest ``main`` update with a **fast-forward merge**
+The builds use the ``Makefile`` of the `mandalore-images <https://github.com/ghecko/mandalore-images>`_ repository. The image version is set with ``VERSION`` (stored in the ``org.mandalore.version`` label). A GitHub token (no scope needed) avoids the GitHub API rate-limit during the build; it is passed as a BuildKit secret and never stored in the image (see the images README).
 
 .. code-block:: bash
 
-    git checkout main
-    git pull --all
-    git checkout dev
-    git pull --all
-    git merge --ff-only main
-    git push
+    export GITHUB_TOKEN=ghp_...
+    make base VERSION=2.0.0
+    make full VERSION=2.0.0
 
-New tag
+.. warning::
+    Building the ``full`` image requires a lot of disk space (around 50GB for the final image, more during the build): standard GitHub-hosted runners are not enough.
+
+Publish
 -------
 
-The ``X.Y.Z`` (or ``X.Y.ZbI``) tag then needs to be placed on the same commit the ``dev`` and ``main`` branches point to.
+Each published image needs two tags: ``<image>`` (e.g. ``full``), which users install, and ``<image>-<version>`` (e.g. ``full-2.0.0``), used by the wrapper to display the image version and detect updates.
 
-Optionally, the "Annotated Tag Message" can be set to the PR initial comment with the ``--file message.txt`` argument in the ``git tag`` command below.
+Pushing requires a **classic** GitHub token with the ``write:packages`` scope (fine-grained tokens are not supported by GHCR).
 
 .. code-block:: bash
 
-    git tag "X.Y.Z"
-    git push origin --tags
+    echo "$TOKEN" | docker login ghcr.io -u <github_user> --password-stdin
+    docker tag <built image> ghcr.io/ghecko/mandalore:full
+    docker tag ghcr.io/ghecko/mandalore:full ghcr.io/ghecko/mandalore:full-2.0.0
+    docker push ghcr.io/ghecko/mandalore:full
+    docker push ghcr.io/ghecko/mandalore:full-2.0.0
 
-Puhing this tag will trigger the **release** workflow. Simply put, the workflow will migrate the images from preprod registry to production registry.
+A new GHCR package is **private** by default: either make it public in the package settings on GitHub, or users must run ``docker login ghcr.io`` (token with ``read:packages``) before installing images.
 
-Maintainers needs to make sure workflow goes as planned and images end up in the prod Dockerhub registry. If the release fails for some reason, the tag can be deleted, changes pushed, and then the tag can be created again to trigger the release again (``git tag -d "X.Y.Z" && git push --delete origin "X.Y.Z"``).
+Before publishing an image, make sure no secret ended up in it (``docker history --no-trunc`` and ``docker inspect`` must not show any token).
 
-Publish release
----------------
+Finally, create a git tag and a GitHub release on the mandalore-images repository for the new version.
 
-The final step is to create a "release" in github (https://github.com/ghecko/mandalore-images/releases/new).
+Documentation
+=============
 
-1. The release must point to the tag created before.
+The documentation is built with Sphinx:
 
-2. The release must be named ``Exegol images X.Y.Z``.
+.. code-block:: bash
 
-3. The release notes can be created with the **Generate releases notes** button.
+    python3 -m pip install -r requirements.txt
+    sphinx-build -b html source build/html
 
-4. Set it as **latest release**.
-
-5. Publish
-
-CI/CD Pipeline
-==============
-
-The Exegol project relies on a continuous integration and continuous deployment (CI/CD) pipeline for multiple scenarios. At the time of writing, Tue 31 Jan 2023, the pipeline is structured as follows:
-
-..  tabs::
-
-    ..  tab:: wrapper
-
-        The GitHub Actions platform is used on :doc:`the Exegol module </the-exegol-project/python-wrapper>`. Its workflows are used for internal and external pull requests, new releases and testing on every commit. The workflows build, and push Python packages on `the official PyPI registry <https://pypi.org/project/Exegol/>`_, and run tests to make sure everything works as it should.
-
-    ..  tab:: images
-
-        The GitHub Actions platform is used on :doc:`the Exegol-images submodule </the-exegol-project/docker-images>`. Its workflows run for internal and external pull requests, new commits, new tags, and allow to:
-
-        * build AMD64 and ARM64 images on self-hosted runners
-        * run tests to make sure the tools are installed properly
-        * automatically export tools list to the documentation
-        * push the images on `the official Dockerhub registry <https://hub.docker.com/repository/docker/nwodtuhs/exegol>`_
-
-        .. image:: /assets/gh_pipelines.png
-            :align: center
-            :alt: Pipelines (GitHub)
-
-    ..  tab:: resources
-
-        The GitHub Actions platform is used on :doc:`the Exegol-resources submodule </the-exegol-project/offline-resources>`. Its workflows are used to automatically update the resources (monthly) and automatically export the list of resources to the documentation.
-
-    ..  tab:: docs
-
-        The GitHub Actions platform is used for the documentation you're reading. Its workflows are used to build on every commit and pull request to make sure everything works as it should, but also automatically merge changes between the various branches in order to help with development.
-
-        ReadTheDocs then builds the final version on every commit for multiple branches (main, dev, dev-images, dev-wrapper) and hosts it online at https://exegol.readthedocs.io/.
-
-
-GitHub Actions
---------------
-
-The GitHub Actions pipeline(s) need runners to operate the various jobs configured for each workflow. The Exegol project relies on self-hosted runners instead of the GitHub-hosted runners mainly for costing reasons.
-
-At the time of writing, Tue 31 Jan 2023, the Exegol-images pipeline(s) require ARM64 and AMD64 runners in order to build, and run corresponding architectured images.
-
-1. Setting up secrets
-~~~~~~~~~~~~~~~~~~~~~
-
-There are some operations that the runner will operate that will require authentication, including:
-- pushing Python packages on PyPI
-- pushing Docker images on Dockerhub
-
-In order to allow this, GitHub Actions can be set up with secrets that the runner will be able to use later on. This part of the documentation shows what secrets must be set up and how.
-
-..  tabs::
-
-    ..  tab:: PyPI
-
-        API Tokens can be created in the maintainer account's `PyPI account settings <https://pypi.org/manage/account/>`_, in the **API Tokens** part. The scope must be set to ``Project: Exegol``. The tokens are linked to the personal PyPI account.
-
-    ..  tab:: Dockerhub
-
-        Access Tokens can be created in the maintainer account's `Dockerhub security settings <https://hub.docker.com/settings/security>`_. Permissions must be set to ``Read, Write, Delete``. The tokens are linked to the personal Dockerhub account.
-
-Once the token is created, it can be added as follows:
-
-- For Exegol-images, go to the `Exegol-images repo settings > secrets > actions <https://github.com/ghecko/mandalore-images/settings/secrets/actions>`_. At the time of writing, 11 Feb. 2023, Dockerhub secrets are named ``DOCKER_USERNAME`` and ``DOCKER_PASSWORD`` in the workflows.
-
-- For the Python wrapper, go to the `Exegol repo settings > secrets > actions <https://github.com/ghecko/mandalore/settings/secrets/actions>`_. At the time of writing, 11 Feb. 2023, the PyPI token is named ``PYPI_API_TOKEN`` in the workflows.
-
-2. Deploying a runner
-~~~~~~~~~~~~~~~~~~~~~
-
-The runner can either run on macOS, Linux, or Windows, as those three operating systems are supporting by the GHA (GitHub Action) platform. x64 and ARM64 are supported for macOS and Windows, and for Linux, ARM is supported as well.
-
-Below are the hardware requirements for each runner:
-
-* enough RAM *(to be defined)*
-* enough CPU *(to be defined)*
-* enough free disk space (at least ~100GB, bare minimum)
-
-Before deploying a GHA agent on a runner, software requirements must be met:
-
-- Docker (or Docker Desktop for Windows and macOS)
-- jq (lightweight and flexible command-line JSON processor)
-
-..  tabs::
-
-    ..  tab:: Linux
-
-        For Linux systems, Docker is required in order to have the GitHub Actions agent running.
-
-        .. tip::
-
-            Docker can be installed quickly and easily with the following command-line:
-
-            .. code-block:: bash
-
-                curl -fsSL "https://get.docker.com/" -o get-docker.sh
-                sh get-docker.sh
-
-        .. warning::
-
-            To run exegol from the user environment without ``sudo``, the user must have privileged rights equivalent to root.
-            To grant yourself these rights, you can use the following command
-
-            .. code-block:: bash
-
-                # add the sudo group to the user
-                sudo usermod -aG docker $(id -u -n)
-
-                # "reload" the user groups
-                newgrp
-
-        The ``jq`` utility is also required and can be installed with the following command line:
-
-        .. code-block:: bash
-
-            apt install jq
-
-        Once the requirements are met, the agent can be deployed as follows (with sufficient permissions in the GitHub repository):
-
-        * go to https://github.com/ghecko/mandalore-images/settings/actions/runners
-        * click on "New self-hosted runner"
-        * select ``Linux`` as operating system, as well as the right architecture and follow the instructions
-        * when running the ``config.sh`` script, the following settings must be set
-
-            * name of the runner group: Default
-            * name of the runner: *up to you*
-            * additional labels: ``builder,tester`` (adapt this if the runner is to be used for only one of those actions). If the runner is an X64/AMD64, the ``AMD64`` tag needs to be set as well. If the runner is ARM64, the right tag will be set automatically.
-            * name of work folder: *up to you*
-
-        * start the runner with the ``run.sh`` script
-        * (option) configure the agent as a service if it is to be run unattended/headless with ``sudo ./svc.sh install <user>``, more info at https://docs.github.com/en/actions/hosting-your-own-runners/configuring-the-self-hosted-runner-application-as-a-service
-
-
-        .. note::
-
-            When configuring the agent as a service, it will be enabled, meaning it will start at boot. The ``systemctl is-enabled`` command should return ``enabled``.
-
-            .. code-block:: bash
-
-                sudo systemctl is-enabled actions.runner.ghecko-mandalore-images.<runner-name>.service
-
-            In order to start the service, either reboot the runner, or use ``systemctl``.
-
-            .. code-block:: bash
-
-                sudo systemctl start actions.runner.ghecko-mandalore-images.<runner-name>.service
-
-        .. image:: /assets/maintainers/gha_deployment/step_1.png
-           :align: center
-           :alt: Created a new runner
-
-        .. image:: /assets/maintainers/gha_deployment/step_2.png
-           :align: center
-           :alt: Configuring the runner (GitHub)
-
-        .. image:: /assets/maintainers/gha_deployment/step_3.png
-           :align: center
-           :alt: Configuring the runner (Local)
-
-
-        .. note::
-
-            Screenshots annotated with https://annotely.com/
-    ..  tab:: macOS
-
-        For macOS, **Docker Desktop** must be installed: https://docs.docker.com/desktop/install/mac-install/.
-
-        * In ``Settings > Resources > Advanced``, the ``virtual disk limit`` must be set to at least 100GB.
-        * In ``Settings > Resources > Advanced``, allocate enough CPUs, Memory and Swap.
-
-        The **jq** tool can be installed as follows.
-
-        .. code-block:: bash
-
-            # install brew
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-
-            # install jq
-            brew install jq
-
-        **Xcode Command Line Tools** are also required, and they can be installed with the following command line.
-
-        .. code-block:: bash
-
-            xcode-select --install
-
-        Once the requirements are met, the agent can be deployed as follows (with sufficient permissions in the GitHub repository):
-
-        * go to https://github.com/ghecko/mandalore-images/settings/actions/runners
-        * click on "New self-hosted runner"
-        * select ``macOS`` as operating system, as well as the right architecture and follow the instructions
-        * when running the ``config.sh`` script, the following settings must be set
-
-            * name of the runner group: Default
-            * name of the runner: *up to you*
-            * additional labels: ``builder,tester`` (adapt this if the runner is to be used for only one of those actions). If the runner is an X64/AMD64, the ``AMD64`` tag needs to be set as well. If the runner is ARM64, the right tag will be set automatically.
-            * name of work folder: *up to you*
-
-        * start the runner with the ``run.sh`` script
-        * the agent must **not** be configured as a service with ``./svc.sh install``. Some errors have been raised when setting up the pipeline like this.
-
-        .. note::
-
-            **TODO** : how to make that service run at boot unattended without using svc.sh install?
-
-
-
-3. Checking runners status
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Go to https://github.com/ghecko/mandalore-images/settings/actions/runners
-
-4. Understanding the pipelines
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**TODO** explain the pipelines, include diagrams.
-
-4. Common errors
-~~~~~~~~~~~~~~~~
-
-1. docker login
-_______________
-
-When configuring a macOS agent as a service with ``./svc.sh install``, the following error was met during workflow run.
-
-..  code-block::
-
-    Run docker/login-action@v2
-    with:
-        username: ***
-        password: ***
-        ecr: auto
-        logout: true
-    Logging into Docker Hub...
-    Error: Error saving credentials: error storing credentials - err: exit status 1, out: `error storing credentials - err: exit status 1, out: `User interaction is not allowed.``
-
-In order to avoid that error, the runner was started interactively with ``./run.sh``.
-
-2. Disk space
-_____________
-
-When there's not enough disk space, the following error is usually raised by the pipelines.
-
-.. code-block::
-
-    You are running out of disk space. The runner will stop working when the machine runs out of disk space. Free space left: 62 MB
-
+The ``source/assets/exegol_resources/resources_list.csv`` file is updated automatically by the mandalore-resources workflow (do not rename this folder without updating that workflow).
 
 Pull Requests
 =============
