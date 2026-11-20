@@ -2,7 +2,7 @@
 :code:`info` action
 ===================
 
-The ``info`` action aims at displaying all the information specific to the Exegol project on the current system.
+The ``info`` action aims at displaying all the information specific to the Mandalore project on the current system.
 This action can also be used by targeting a specific container to display its configuration in detail.
 
 Depending on the verbosity level specified in the command-line, the information displayed will be more or less detailed accordingly.
@@ -13,47 +13,49 @@ Depending on the verbosity level specified in the command-line, the information 
 
         .. code-block:: bash
 
-            exegol info
+            mandalore info
 
-        * List of available Exegol Images
+        * List of available Mandalore Images
 
             * Name of the image
             * Size of each image (disk space if the image is installed, otherwise its compressed size to download for installation)
             * Status of each image
 
-                * Not installed (Image available for download from dockerhub)
+                * Not installed (Image available for download from the registry)
                 * Up to date (The latest version of the image is installed and ready to be used)
-                * Update available (A new version is available for download on dockerhub)
+                * Update available (A new version is available for download on the registry)
                 * Outdated (Old version of an image that has been updated since)
                 * Local image (Locally built image)
-                * Discontinued (if your image is no longer available on dockerhub)
+                * Discontinued (if your image is no longer available on the registry)
+                * Unknown (the registry could not be reached, or the package is private and ``docker login ghcr.io`` has not been done)
 
-        * List of Exegol Containers
+        * List of Mandalore Containers
 
             * Name of each container
             * Container status (Stopped or running)
-            * Image name (Exegol image used as a base to create the container)
+            * Image name (Mandalore image used as a base to create the container)
             * Configurations (Display of non-default configurations)
 
     .. tab:: Verbose
 
         .. code-block:: bash
 
-            exegol info -v
+            mandalore info -v
 
         In the verbose mode, the following additional elements are displayed. Everything from the lower verbosity level is still displayed.
 
-        * Enumerate every user configuration (see details :ref:`here<exegol_configuration>`)
+        * Enumerate every user configuration (see details :ref:`here<mandalore_configuration>`)
 
-        * In the list of available Exegol Images
+        * In the list of available Mandalore Images
 
             * Image ID
             * Build date
             * Image architecture (AMD64 / ARM64)
 
-        * In the list of Exegol Containers
+        * In the list of Mandalore Containers
 
             * Container id
+            * Size: disk space used by the container's writable layer (files created or modified inside the container, outside of volumes)
             * Full configuration
             * List of non-technical volumes
             * List of Devices
@@ -64,13 +66,13 @@ Depending on the verbosity level specified in the command-line, the information 
 
         .. code-block::
 
-            exegol info -vv
+            mandalore info -vv
 
         In the advanced mode, the following additional elements are displayed. Everything from the lower verbosity levels is still displayed.
 
-        * Enumerate the settings from the user configuration at ``~/.exegol/config.yml`` (see details :ref:`here<exegol_configuration>`)
+        * Enumerate the settings from the user configuration at ``~/.mandalore/config.yml`` (see details :ref:`here<mandalore_configuration>`)
 
-        * List the different exegol modules
+        * List the different mandalore modules
 
             * Modules name
             * Their update status
@@ -80,7 +82,7 @@ Depending on the verbosity level specified in the command-line, the information 
 
         .. code-block::
 
-            exegol info -vvv
+            mandalore info -vvv
 
         In the debug mode, everything from the lower verbosity levels is still displayed, as well as logs from internal methods and functions. Those logs can be useful for maintainers and developers in case of bug, or for making sure everything works properly.
 
@@ -96,6 +98,8 @@ The info action does not have many parameters, its use is relatively simple. Thi
 ``CONTAINER``             Optional positional argument to indicate the container tag of which to display the configuration.
 ========================= =============
 
+When a container is targeted, its recap includes a **Disk usage** row: the disk space used by the container itself (writable layer) and, in verbose mode (``-v``), the size of its workspace on the host.
+
 Global options can still be used, like for any action.
 
 ========================= =============
@@ -104,8 +108,8 @@ Global options can still be used, like for any action.
 ``-h``, ``--help``        Show the help message of any action
 ``-v``, ``--verbose``     Verbosity level (-v for verbose, -vv for advanced, -vvv for debug)
 ``-q``, ``--quiet``       Show no information at all
-``-k``, ``--insecure``    Allow insecure server connections for web requests, e.g. when fetching info from DockerHub (default: Secure)
-``--offline``             Run exegol in offline mode, no request will be made on internet (default: Disable)
+``-k``, ``--insecure``    Allow insecure server connections for web requests, e.g. when fetching info from the registry (default: Secure)
+``--offline``             Run mandalore in offline mode, no request will be made on internet (default: Disable)
 ``--arch {arm64,amd64}``  Overwrite default image architecture (default: host's arch)
 ========================= =============
 
@@ -115,16 +119,16 @@ Command examples
 .. code-block:: bash
 
     # Print containers and images essentials information:
-    exegol info
+    mandalore info
 
     # Print the detailed configuration of the "demo" container:
-    exegol info demo
+    mandalore info demo
 
     # Print verbose information:
-    exegol info -v
+    mandalore info -v
 
     # Print advanced information:
-    exegol info -vv
+    mandalore info -vv
 
     # Print debug information:
-    exegol info -vvv
+    mandalore info -vvv
