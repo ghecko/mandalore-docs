@@ -29,6 +29,16 @@ exclude_patterns = []
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_rtd_theme'
+# Published with GitHub Pages
+html_baseurl = 'https://ghecko.github.io/mandalore-docs/'
+# "Edit on GitHub" links
+html_context = {
+    'display_github': True,
+    'github_user': 'ghecko',
+    'github_repo': 'mandalore-docs',
+    'github_version': 'main',
+    'conf_py_path': '/source/',
+}
 html_static_path = ['_static']
 
 
