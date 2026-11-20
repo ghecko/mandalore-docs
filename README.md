@@ -1,17 +1,18 @@
-
-> **📌 This repository hosts code for the Exegol documentation, a sub-repository of the Exegol project. 
-> If you were looking for Exegol, go to [the main repo](https://github.com/ghecko/mandalore)**
+> **📌 This repository hosts the Mandalore documentation, a sub-repository of the Mandalore project.
+> If you were looking for Mandalore, go to [the main repo](https://github.com/ghecko/mandalore)**
 ___
 
-# Exegol docs
+# Mandalore docs
 
 This repository hosts the source of the documentation for users, contributors, developers (work in progress), and maintainers (work in progress).
 
-Link to the doc: https://exegol.readthedocs.io/.
+Mandalore is a fork of [Exegol](https://github.com/ThePorgs/Exegol) 4.3.12 (GPLv3). This documentation is derived from the [Exegol documentation](https://github.com/ThePorgs/Exegol-docs), under the same GPLv3 licence.
 
-## Branch description
+## Build
 
-- main: The main branch is the officiel latest stable version of the exegol project.
-- dev: The dev branch is a place for updates related to existing features and minor documentation updates.
-- dev-images: This branch is dedicated to the latest news being developed in exegol **image** (nightly). It will be merge in "main" when a stable and official version will be released.
-- dev-wrapper: this branch is dedicated to the latest news being developed in exegol **wrapper** (dev). It will be merge in "main" when a stable and official version will be released.
+```bash
+python3 -m pip install -r requirements.txt
+sphinx-build -b html source build/html
+```
+
+The pages are in `source/` (reStructuredText, Sphinx). Open a pull request against the default branch.

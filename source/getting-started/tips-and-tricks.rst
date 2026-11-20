@@ -2,7 +2,7 @@
 Tips & tricks
 =============
 
-Below are some of the tips and tricks that are good to keep in mind when using Exegol.
+Below are some of the tips and tricks that are good to keep in mind when using Mandalore.
 
 .. contents::
     :local:
@@ -52,7 +52,7 @@ Dynamic history commands
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Many commands in the pre-filled history rely on environment variables such as ``$DOMAIN``, ``$USER``, ``$PASSWORD``, etc.
-Those variables can be set manually or by using the ``profile.sh`` file in ``/opt/tools/Exegol-history/``.
+Those variables can be set manually or by using the ``profile.sh`` file in ``/opt/tools/exegol-history/``.
 The proper lines can be filled and uncommented, and then the shell can be reloaded with ``exec zsh`` in order to apply the changes.
 This allows users to easily look for, and use, commands in the history, without changing the values every time.
 
@@ -83,7 +83,7 @@ Useful aliases
 
 .. tip::
 
-    To see every alias in your exegol image, run the command:
+    To see every alias in your mandalore image, run the command:
 
     .. code-block::
 

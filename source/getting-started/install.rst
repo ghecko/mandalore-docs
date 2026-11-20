@@ -1,16 +1,16 @@
-==============
-Install Exegol
-==============
+=================
+Install Mandalore
+=================
 
-Installing Exegol starts with installing the entrypoint to the whole project: the Python wrapper. Once the wrapper is installed, everything else can be managed from it.
+Installing Mandalore starts with installing the entrypoint to the whole project: the Python wrapper. Once the wrapper is installed, everything else can be managed from it.
 
 .. hint::
 
-   It is strongly advised to install Exegol on a Linux host, especially when planning on using Exegol for internal penetration tests. This is because Docker Desktop on Windows and macOS lacks a few features, mainly due to how these operating systems run Docker containers within an internal VM that doesn't share the host's network interfaces and USB accessories.
+   It is strongly advised to install Mandalore on a Linux host, especially when planning on using Mandalore for internal penetration tests. This is because Docker Desktop on Windows and macOS lacks a few features, mainly due to how these operating systems run Docker containers within an internal VM that doesn't share the host's network interfaces and USB accessories.
 
-Once the wrapper is installed, the second step in setting up Exegol on a device is to install at least one Exegol image, either with ``exegol start`` (documentation
-:doc:`here </exegol-wrapper/start>`), or with ``exegol install`` (documentation
-:doc:`here </exegol-wrapper/install>`). Both actions will guide the user in installing an image if needed.
+Once the wrapper is installed, the second step in setting up Mandalore on a device is to install at least one Mandalore image, either with ``mandalore start`` (documentation
+:doc:`here </mandalore-wrapper/start>`), or with ``mandalore install`` (documentation
+:doc:`here </mandalore-wrapper/install>`). Both actions will guide the user in installing an image if needed.
 
 .. contents::
     :local:
@@ -20,10 +20,10 @@ Once the wrapper is installed, the second step in setting up Exegol on a device 
 Requirements
 ============
 
-The following elements are required before Exegol can be installed, whatever the host's operating system is:
+The following elements are required before Mandalore can be installed, whatever the host's operating system is:
 
 * git (`Linux <https://github.com/git-guides/install-git#install-git-on-linux>`__ | `macOS <https://github.com/git-guides/install-git#install-git-on-mac>`__ | `Windows <https://github.com/git-guides/install-git#install-git-on-windows>`__)
-* python3 (`Linux <https://docs.python.org/3/using/unix.html#on-linux>`__ | `macOS <https://www.python.org/downloads/macos/>`__ | `Windows <https://www.python.org/downloads/windows/>`__)
+* python3, version 3.10 or newer (`Linux <https://docs.python.org/3/using/unix.html#on-linux>`__ | `macOS <https://www.python.org/downloads/macos/>`__ | `Windows <https://www.python.org/downloads/windows/>`__)
 * docker (`Linux <https://docs.docker.com/engine/install/debian/>`__) or Docker Desktop (`macOS <https://docs.docker.com/desktop/install/mac-install/>`__ | `Windows <https://docs.docker.com/desktop/install/windows-install/>`__)
 * at least 100GB of free storage recommended (a minimum of 20GB could be enough, but only for the ``light`` image).
 
@@ -45,7 +45,7 @@ Additional dependencies may be required depending on the host OS.
 
         .. warning::
 
-           By default, ``sudo`` will be required when running docker, hence needed as well for Exegol. For security reasons, it should stay that way, but it's possible to change that. In order to run exegol from the user environment without ``sudo``, the user must have the appropriate rights. You can use the following command to grant them to the current user:
+           By default, ``sudo`` will be required when running docker, hence needed as well for Mandalore. For security reasons, it should stay that way, but it's possible to change that. In order to run mandalore from the user environment without ``sudo``, the user must have the appropriate rights. You can use the following command to grant them to the current user:
 
            .. code-block:: bash
 
@@ -59,7 +59,7 @@ Additional dependencies may be required depending on the host OS.
 
         .. warning::
 
-            `Docker "Rootless mode" <https://docs.docker.com/engine/security/rootless/>`_ is not supported by Exegol as of yet. Please follow the install procedure mentionned above.
+            `Docker "Rootless mode" <https://docs.docker.com/engine/security/rootless/>`_ is not supported by Mandalore as of yet. Please follow the install procedure mentionned above.
 
     ..  group-tab:: macOS
 
@@ -67,7 +67,7 @@ Additional dependencies may be required depending on the host OS.
 
         .. hint::
 
-            The XQuartz requirement below is now optional if using the (beta) :ref:`Graphical Remote Desktop feature <feature_desktop>` instead of X11 sharing (join our Discord to know more about this beta feature).
+            The XQuartz requirement below is now optional if using the (beta) :ref:`Graphical Remote Desktop feature <feature_desktop>` instead of X11 sharing.
 
         * `XQuartz <https://www.xquartz.org/>`__ must be installed
         * The XQuartz config ``Allow connections from network clients`` must be set to true
@@ -87,19 +87,19 @@ Additional dependencies may be required depending on the host OS.
 
         .. warning::
 
-            You'll also need to add the exegol source folder (or, more precisely, the folder ``[...]/exegol/utils/imgsync``).
+            You'll also need to add the mandalore source folder (or, more precisely, the folder ``[...]/mandalore/utils/imgsync``).
 
-            If you install Exegol from the python pip package, this folder is located where the python packages are installed.
-            The path to this folder depends on how you installed python. When creating your first container, you may get an error disclosing the exegol installation folder, which will have to be added as an authorized resource.
+            If you install Mandalore with uv, pipx or pip, this folder is located where the python packages are installed.
+            The path to this folder depends on how you installed python. When creating your first container, you may get an error disclosing the mandalore installation folder, which will have to be added as an authorized resource.
 
             By default, you can try to add the path: ``/Library/Frameworks/Python.framework`` to the Docker Desktop File sharing allowlist.
 
 
         .. tip::
 
-            `OrbStack <https://orbstack.dev/>`__ for **Mac** is supported by Exegol wrapper from ``v4.2.0``.
+            `OrbStack <https://orbstack.dev/>`__ for **Mac** is supported by Mandalore wrapper from ``v4.2.0``.
 
-            Your exegol installation cannot be stored under ``/opt`` directory when using OrbStack (`due to OrbStack limitations <https://github.com/orbstack/orbstack/issues/435>`_).
+            Your mandalore installation cannot be stored under ``/opt`` directory when using OrbStack (`due to OrbStack limitations <https://github.com/orbstack/orbstack/issues/435>`_).
 
             This support is still in beta, feel free to open issues on `GitHub <https://github.com/ghecko/mandalore/issues/new/choose>`__ if you encounter any bugs.
 
@@ -120,72 +120,66 @@ Additional dependencies may be required depending on the host OS.
 
             Windows Docker Desktop WSL integration configuration
 
-        In a Windows environment, the Exegol wrapper can be installed **either** in a **WSL shell** or directly in your Windows environment with **Powershell**.
+        In a Windows environment, the Mandalore wrapper can be installed **either** in a **WSL shell** or directly in your Windows environment with **Powershell**.
 
         .. warning::
 
-            Please note that it is **not** advisable to use Exegol from both environments at the same time, as this could lead to conflicts and Exegol does not officially support this configuration.
+            Please note that it is **not** advisable to use Mandalore from both environments at the same time, as this could lead to conflicts and Mandalore does not officially support this configuration.
 
         .. warning::
 
-            You may want to disable Windows Defender during the installation, as Exegol will download pre-built remote shells (or temporarily exclude ``C:\Users\<username>\AppData\Local\Temp`` or the source file directory).
+            You may want to disable Windows Defender during the installation, as Mandalore will download pre-built remote shells (or temporarily exclude ``C:\Users\<username>\AppData\Local\Temp`` or the source file directory).
 
-            You should also add the folder ``C:\Users\<user>\.exegol\exegol-resources`` to the exclusion list.
+            You should also add the folder ``C:\Users\<user>\.mandalore\mandalore-resources`` to the exclusion list.
 
 
-.. _exegol_install:
+.. _mandalore_install:
 
 Installation
 ============
 
-The installation of Exegol on Linux, macOS and Windows are very similar. It can either be installed from pip (easiest, most user-friendly, but with a few missing features) or from sources (easy as well, fully featured).
+The installation of Mandalore on Linux, macOS and Windows are very similar. The wrapper requires **Python 3.10 or newer**. It is installed from its GitHub repository, either as an isolated tool (with ``uv`` or ``pipx``) or used directly from a git clone (fully featured, with self-update).
+
+.. note::
+
+   Mandalore is not published on PyPI (yet). The commands below install it from GitHub.
 
 
-1. Installation of exegol
--------------------------
+1. Installation of mandalore
+----------------------------
 
 ..  tabs::
-    ..  group-tab:: Installing with pipx (preferred)
+    ..  group-tab:: Installing with uv / pipx (preferred)
 
-        The pre-compiled Exegol’s wrapper can be installed from the PyPI repository.
-        While this is the easiest and most user-friendly technique, it is advised to install from sources, as it allows to switch from release to dev branches easily and it supports the auto-update feature.
-
-        Using ``pipx`` allows you to install Exegol in an **isolated** virtual environment **dedicated** to it.
-
-        First, ``pipx`` must be installed on your host system:
+        Installing with `uv <https://docs.astral.sh/uv/>`__ or `pipx <https://pipx.pypa.io/>`__ puts Mandalore in an **isolated** virtual environment **dedicated** to it.
 
         .. code-block:: bash
 
-            # install pipx if not already installed, from system package:
-            sudo apt update && sudo apt install pipx
-            # OR from pip
-            python3 -m pip install pipx
+            # with uv
+            uv tool install "git+https://github.com/ghecko/mandalore"
 
-        Exegol's wrapper can be installed with ``pipx`` from **PyPI**:
+            # OR with pipx (install pipx first if needed: sudo apt install pipx)
+            pipx install "git+https://github.com/ghecko/mandalore"
 
-        .. code-block:: bash
-
-            # You can now install Exegol package from PyPI
-            pipx install exegol
+        With this installation mode, the mandalore images and resources repositories are cloned on demand in ``~/.mandalore/``.
 
     ..  group-tab:: Installing from sources
 
-        Exegol's wrapper can be installed from sources (with Git). The wrapper then knows how to self-update, and switching from release and development branches is possible and very easy.
+        Mandalore's wrapper can be used from a git clone. The wrapper then knows how to self-update, and switching from release and development branches is possible and very easy. The images and resources repositories are git submodules of the wrapper repository.
 
         .. code-block:: bash
 
-            git clone "https://github.com/ghecko/mandalore"
+            git clone --recurse-submodules "https://github.com/ghecko/mandalore"
 
-        .. tip::
+        The clone can then be installed as an editable tool (recommended, the ``mandalore`` command stays in sync with the clone):
 
-           If you want a **light** clone of Exegol (and **never** use the **dev** branch), you can use the following command:
+        .. code-block:: bash
 
-           .. code-block:: bash
+            uv tool install --editable ./mandalore
+            # OR
+            pipx install --editable ./mandalore
 
-               git clone --shallow-since="2023/05/08" "https://github.com/ghecko/mandalore"
-
-        If you have access to docker directly as a user, you can install the requirements only for your current user
-        otherwise the requirements must be installed as root to run Exegol with sudo.
+        Alternatively, install the requirements and run ``mandalore.py`` directly. If you have access to docker directly as a user, you can install the requirements only for your current user, otherwise the requirements must be installed as root to run Mandalore with sudo.
 
         .. tabs::
 
@@ -193,59 +187,54 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
 
                .. code-block:: bash
 
-                  sudo python3 -m pip install --requirement "Exegol/requirements.txt"
+                  sudo python3 -m pip install --requirement "mandalore/requirements.txt"
 
            .. tab:: Directly as user
 
                .. code-block:: bash
 
-                  python3 -m pip install --user --requirement "Exegol/requirements.txt"
-
-    ..  group-tab:: Installing with pip
-
-        The pre-compiled Exegol’s wrapper can be installed from the PyPI repository.
-        While this is the easiest and most user-friendly technique, it is advised to install from sources, as it allows to switch from release to dev branches easily and it supports the auto-update feature.
-
-        .. code-block:: bash
-
-           python3 -m pip install exegol
+                  python3 -m pip install --user --requirement "mandalore/requirements.txt"
 
         .. warning::
 
-            In some cases, it is no longer possible to add a pip package system-wide (PEP 668). In such cases, it is preferable to use ``pipx``.
+            In some cases, it is no longer possible to add a pip package system-wide (PEP 668). In such cases, prefer the ``uv tool`` / ``pipx`` installation.
 
 
-2. Adding Exegol to the ``PATH``
---------------------------------
+2. Adding Mandalore to the ``PATH``
+-----------------------------------
 
 ..  tabs::
 
-    ..  group-tab:: Installing with pipx (preferred)
+    ..  group-tab:: Installing with uv / pipx (preferred)
 
-        In order to use pipx applications, the pipx environment must be set in your PATH:
+        In order to use uv or pipx applications, their bin directory must be set in your PATH:
 
         .. code-block:: bash
 
+            uv tool update-shell
+            # OR
             pipx ensurepath
 
         Dont forget to open a **new terminal** to reload your PATH before continuing.
 
     ..  group-tab:: Installing from sources
 
+        If the clone was installed with ``uv tool install --editable`` or ``pipx install --editable``, follow the uv / pipx tab. Otherwise:
+
         ..  tabs::
             .. tab:: Linux & MacOS
 
-                Once this is taken care of, the exegol wrapper can then be added to the ``PATH`` with a symlink for direct access. This allows to call exegol from wherever, instead of to use the absolute path. Exegol can then be used with ``exegol <action>`` instead of ``python3 /path/to/Exegol/exegol.py <action>``.
+                The mandalore wrapper can be added to the ``PATH`` with a symlink for direct access. This allows to call mandalore from wherever, instead of using the absolute path. Mandalore can then be used with ``mandalore <action>`` instead of ``python3 /path/to/mandalore/mandalore.py <action>``.
 
                 .. code-block:: bash
 
-                   sudo ln -s "$(pwd)/Exegol/exegol.py" "/usr/local/bin/exegol"
+                   sudo ln -s "$(pwd)/mandalore/mandalore.py" "/usr/local/bin/mandalore"
 
             ..  group-tab:: Windows
 
-                Once this is taken care of, the exegol wrapper can then can be added as a PowerShell command alias. Exegol can then be used with ``exegol <action>`` instead of ``python3 /path/to/Exegol/exegol.py <action>``.
+                The mandalore wrapper can be added as a PowerShell command alias. Mandalore can then be used with ``mandalore <action>`` instead of ``python3 /path/to/mandalore/mandalore.py <action>``.
 
-                To create the alias file correctly, open a PowerShell and place yourself in the folder where exegol is located (applicable only for `from source` installations) and run the following commands:
+                To create the alias file correctly, open a PowerShell and place yourself in the folder where mandalore is located and run the following commands:
 
                 Create `$PROFILE` file if it doesn't exist:
 
@@ -255,11 +244,11 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
                         New-Item -ItemType File -Path $PROFILE -Force
                     }
 
-                Create alias for Exegol in `$PROFILE`:
+                Create alias for Mandalore in `$PROFILE`:
 
                 .. code-block:: powershell
 
-                    echo "Set-Alias -Name exegol -Value '$(pwd)\exegol.py'" >> $PROFILE
+                    echo "Set-Alias -Name mandalore -Value '$(pwd)\mandalore.py'" >> $PROFILE
 
                 .. warning::
 
@@ -276,30 +265,23 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
 
                     It is possible to disable this behavior in the Windows settings: ``Apps > Apps & features > App execution aliases`` and disable aliases for ``python.exe`` and ``python3.exe``.
 
-    ..  group-tab:: Installing with pip
+.. _install_mandalore_privileges:
 
-        If your pip installation is correct and functional, you have nothing more to do and you can already use the command ``exegol``.
-
-        If not, remember that pip installs binaries in a **dedicated** local folder, which then **must** be in the ``PATH`` environment variable.
-        Try to fix your pip installation: `Linux <https://stackoverflow.com/a/62823029>`__ | `MacOS <https://stackoverflow.com/a/43368894>`__ | `Windows <https://builtin.com/software-engineering-perspectives/pip-command-not-found>`__
-
-.. _install_exegol_privileges:
-
-3. Run Exegol with appropriate privileges
------------------------------------------
+3. Run Mandalore with appropriate privileges
+--------------------------------------------
 
 
 ..  tabs::
 
     ..  group-tab:: Linux
 
-        Exegol does not support rootless docker. To interact with docker, you must either have your user be a member of the docker group to use exegol as a user, or run Exegol with root privileges using sudo.
+        Mandalore does not support rootless docker. To interact with docker, you must either have your user be a member of the docker group to use mandalore as a user, or run Mandalore with root privileges using sudo.
 
         ..  tabs::
 
             .. tab:: Run as root (preferred)
 
-                To run Exegol as root with sudo, you must use a specific sudo command. For a better user experience, we recommend using an alias:
+                To run Mandalore as root with sudo, you must use a specific sudo command. For a better user experience, we recommend using an alias:
 
                 ..  tabs::
 
@@ -307,14 +289,14 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
 
                         .. code-block:: bash
 
-                            echo "alias exegol='sudo -E $(which exegol)'" >> ~/.bash_aliases
+                            echo "alias mandalore='sudo -E $(which mandalore)'" >> ~/.bash_aliases
                             source ~/.bashrc
 
                     .. group-tab:: Zsh
 
                         .. code-block:: bash
 
-                            echo "alias exegol='sudo -E $(which exegol)'" >> ~/.zshrc
+                            echo "alias mandalore='sudo -E $(which mandalore)'" >> ~/.zshrc
                             source ~/.zshrc
 
                     .. tip::distribution
@@ -335,7 +317,7 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
 
                     For more information, official Docker documentation shows `how to manage docker as a non root user <https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-userm>`_.
 
-                If you accept this risk because the environment is not critical and you prefer ease of use without the security control provided by sudo, you can apply the following method to use exegol directly as a user:
+                If you accept this risk because the environment is not critical and you prefer ease of use without the security control provided by sudo, you can apply the following method to use mandalore directly as a user:
 
                .. code-block:: bash
 
@@ -349,27 +331,33 @@ The installation of Exegol on Linux, macOS and Windows are very similar. It can 
 
     ..  group-tab:: macOS
 
-        Exegol should **NOT** be used as root on macOS. Docker Desktop (or Orbstack) do not require root privileges.
+        Mandalore should **NOT** be used as root on macOS. Docker Desktop (or Orbstack) do not require root privileges.
 
     ..  group-tab:: Windows
 
-        Exegol should **NOT** be used as admin on Windows and **NOT** as root in a WSL instance. Docker Desktop doesn't require administrator privileges.
+        Mandalore should **NOT** be used as admin on Windows and **NOT** as root in a WSL instance. Docker Desktop doesn't require administrator privileges.
 
 
-4. Installation of the first Exegol image
------------------------------------------
+4. Installation of the first Mandalore image
+--------------------------------------------
 
-Once the exegol wrapper is installed, you can download your first docker image with the following command:
+Once the mandalore wrapper is installed, you can download your first docker image with the following command:
 
 .. code-block:: bash
 
-   exegol install
+   mandalore install
+
+Images are pulled from the GitHub Container Registry (``ghcr.io/ghecko/mandalore``). If the package is not public, log in first with a GitHub token that has the ``read:packages`` scope; the wrapper reuses your Docker credentials:
+
+.. code-block:: bash
+
+   docker login ghcr.io
 
 
-5. (Optional) Using Exegol auto-completion
-------------------------------------------
+5. (Optional) Using Mandalore auto-completion
+---------------------------------------------
 
-Exegol (wrapper) supports auto-completion in many shell environments but there is a configuration to add (on the host) for this feature to work.
+Mandalore (wrapper) supports auto-completion in many shell environments but there is a configuration to add (on the host) for this feature to work.
 
 .. important::
 
@@ -394,7 +382,7 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
     ..  tabs::
         .. group-tab:: Bash
 
-            You can enable Exegol auto-completion for your **current user** with your ``.bashrc`` or you can enable the auto-completion **system-wide** with ``bash-completion``.
+            You can enable Mandalore auto-completion for your **current user** with your ``.bashrc`` or you can enable the auto-completion **system-wide** with ``bash-completion``.
 
             ..  tabs::
 
@@ -408,11 +396,11 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
 
                     At this point you should have a ``/etc/bash_completion.d/`` folder. It's in there that you can add any auto-completion module that you want.
 
-                    To generate and install the exegol completion configuration you can execute the following command with ``register-python-argcomplete``:
+                    To generate and install the mandalore completion configuration you can execute the following command with ``register-python-argcomplete``:
 
                     .. code-block:: bash
 
-                        register-python-argcomplete --no-defaults exegol | sudo tee /etc/bash_completion.d/exegol > /dev/null
+                        register-python-argcomplete --no-defaults mandalore | sudo tee /etc/bash_completion.d/mandalore > /dev/null
 
                 .. tab:: Via .bashrc
 
@@ -420,7 +408,7 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
 
                     .. code-block:: bash
 
-                        eval "$(register-python-argcomplete --no-defaults exegol)"
+                        eval "$(register-python-argcomplete --no-defaults mandalore)"
 
 
             .. tip::
@@ -439,7 +427,7 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
 
             .. code-block:: bash
 
-                eval "$(register-python-argcomplete --no-defaults exegol)"
+                eval "$(register-python-argcomplete --no-defaults mandalore)"
 
         .. group-tab:: Fish
 
@@ -447,13 +435,13 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
 
             .. code-block:: bash
 
-                register-python-argcomplete --no-defaults --shell fish exegol | source
+                register-python-argcomplete --no-defaults --shell fish mandalore | source
 
             or create new completion file, e.g:
 
             .. code-block:: bash
 
-                register-python-argcomplete --no-defaults --shell fish exegol > ~/.config/fish/completions/exegol.fish
+                register-python-argcomplete --no-defaults --shell fish mandalore > ~/.config/fish/completions/mandalore.fish
 
         .. group-tab:: Tcsh
 
@@ -461,7 +449,7 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
 
             .. code-block:: bash
 
-                eval `register-python-argcomplete --no-defaults --shell tcsh exegol`
+                eval `register-python-argcomplete --no-defaults --shell tcsh mandalore`
 
         .. tab:: PowerShell
 
@@ -469,7 +457,7 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
 
             .. code-block:: powershell
 
-                register-python-argcomplete --no-defaults --shell powershell exegol > $HOME\Documents\WindowsPowerShell\exegol_completion.psm1
+                register-python-argcomplete --no-defaults --shell powershell mandalore > $HOME\Documents\WindowsPowerShell\mandalore_completion.psm1
 
             .. warning::
 
@@ -481,7 +469,7 @@ Exegol (wrapper) supports auto-completion in many shell environments but there i
 
             .. code-block:: powershell
 
-                echo "Import-Module '$HOME\Documents\WindowsPowerShell\exegol_completion.psm1'" >> $PROFILE
+                echo "Import-Module '$HOME\Documents\WindowsPowerShell\mandalore_completion.psm1'" >> $PROFILE
             
             .. tip::
                 

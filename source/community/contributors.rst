@@ -2,9 +2,9 @@
 Contributors
 ============
 
-This part of the documentation is meant for Exegol contributors, those who write code and open pull requests. If adds up to the :doc:`users </community/users>` documentation.
+This part of the documentation is meant for Mandalore contributors, those who write code and open pull requests. It adds up to the :doc:`users </community/users>` documentation.
 
-First things first, once you know on what module you want to contribute (`wrapper <https://github.com/ghecko/mandalore>`_, `images <https://github.com/ghecko/mandalore-images>`_, `documentation <https://github.com/ghecko/mandalore-docs>`_, `resources <https://github.com/ghecko/mandalore-resources>`_, etc.) `fork it <https://docs.github.com/en/get-started/quickstart/fork-a-repo>`_, `checkout <https://git-scm.com/docs/git-checkout>`_ to the ``dev`` branch, then come back to this page to start coding.
+First things first, once you know on what module you want to contribute (`wrapper <https://github.com/ghecko/mandalore>`_, `images <https://github.com/ghecko/mandalore-images>`_, `documentation <https://github.com/ghecko/mandalore-docs>`_, `resources <https://github.com/ghecko/mandalore-resources>`_, etc.) `fork it <https://docs.github.com/en/get-started/quickstart/fork-a-repo>`_, create a branch from the repository's default branch, then come back to this page to start coding.
 
 .. contents::
     :local:
@@ -12,21 +12,7 @@ First things first, once you know on what module you want to contribute (`wrappe
 Documentation
 ==============
 
-A new feature, whether it's on the wrapper, images, or any other module, must be documented accordingly. Make sure to open a pull request to the appropriate `Exegol docs <https://github.com/ghecko/mandalore-docs>`_ branch on top of your wrapper/images/whatever pull request.
-
-..  list-table:: Exegol-docs branches
-    :header-rows: 1
-
-    * - Branch
-      - Purpose
-    * - main
-      - nothing gets pushed there. This branch is made to merge with the other branches.
-    * - dev-wrapper
-      - Related to the wrapper (`Exegol <https://github.com/ghecko/mandalore>`_ )
-    * - dev-images
-      - Related to the images (`Exegol-images <https://github.com/ghecko/mandalore-images>`_ )
-    * - dev
-      - General purpose
+A new feature, whether it's on the wrapper, images, or any other module, must be documented accordingly. Make sure to open a pull request on the `Mandalore docs <https://github.com/ghecko/mandalore-docs>`_ repository (against its default branch) on top of your wrapper/images/whatever pull request.
 
 Before pushing a pull request on the documentation repository, it is advised to try and compile locally to make sure there are no errors and everything renders as expected. First, the requirements listed in ``requirements.txt`` must be installed (e.g. ``pip install --user -r ./requirements.txt``). Then, the one-liner below can be used to remove any previous build, compile again and open the build in a browser.
 
@@ -39,7 +25,7 @@ Before pushing a pull request on the documentation repository, it is advised to 
 Images
 ======
 
-The Docker images are the heart of the Exegol project. A neat choice of tools, configurations, aliases, history commands, and various customizations are prepared in multiple images adapted for multiple uses: web hacking, Active Directory, OSINT (Open Source INTelligence), etc.
+The Docker images are the heart of the Mandalore project. A neat choice of tools, configurations, aliases, history commands, and various customizations are prepared in multiple images adapted for multiple uses: web hacking, Active Directory, OSINT (Open Source INTelligence), etc.
 
 If you want to contribute to this part of the project, there are some things you need to know and some rules you need to follow.
 
@@ -75,7 +61,7 @@ When preparing the install function to the package, don't forget to include the 
 
 * ``add-test-command "testcommand"``: this is needed by the CI/CD pipeline to conduct unit tests for all tools to make sure they are installed properly before publishing new images. The test command needs to return ``0`` if the tool works properly, anything else if it doesn't. For instance, something like ``yourtool.py --help`` usually works, but not always! In order to find what command can be used for unit tests, you can do something like ``yourtool.py --help; echo $?`` to see what code is returned after the command is executed. Once trick that can be used when the ``--help`` command returns something ``!=0`` is to do some grep like ``yourtool.py --help|& grep 'Usage:'``.
 
-* ``add-to-list "yourtool,https://link.to/the/tool,description"``: this is used by the CI/CD pipeline to automatically export tools in the :doc:`Tools list </exegol-image/tools>`. The format of the entry is standard 3-columns CSV (comma separated values). The first column is the tool name, then the link to the tool, then the description. Be careful to not have more than 2 commas and replace any comma in the description by something else.
+* ``add-to-list "yourtool,https://link.to/the/tool,description"``: this is used by the CI/CD pipeline to automatically export tools in the :doc:`Tools list </mandalore-image/tools>`. The format of the entry is standard 3-columns CSV (comma separated values). The first column is the tool name, then the link to the tool, then the description. Be careful to not have more than 2 commas and replace any comma in the description by something else.
 
 In case your tool doesn't need aliases or history commands, add the following comment at the beggining of the tool install function: ``# CODE-CHECK-WHITELIST=``. Then add a comma-separated list of the exclusions. Below are some examples.
 
@@ -106,7 +92,7 @@ When installing a tool, depending on how it gets installed, here are the rules.
 * Most tools are installed either in their own directory in ``/opt/tools/`` or have the binary (or a symlink) in ``/opt/tools/bin/``.
 * Disk space being limited, we're not pulling every code source around. When possible, add the ``--depth 1`` option to your usual ``git clone`` command.
 
-To manage tool versions, we use ``asdf`` (`asdf-vm/asdf <https://github.com/asdf-vm/asdf>`_), a version management tool that allows the installation and management of multiple versions of various programming languages and tools across different projects. ``asdf`` uses a system of shims to ensure that the correct version of a tool is used based on your project's configuration. Currently, on Exegol, asdf only manages the ``Go`` programming language (``golang``).
+To manage tool versions, we use ``asdf`` (`asdf-vm/asdf <https://github.com/asdf-vm/asdf>`_), a version management tool that allows the installation and management of multiple versions of various programming languages and tools across different projects. ``asdf`` uses a system of shims to ensure that the correct version of a tool is used based on your project's configuration. Currently, on Mandalore, asdf only manages the ``Go`` programming language (``golang``).
 
 
 ..  tabs::
@@ -234,13 +220,13 @@ Other standards
 
 If your tool opens ports, or if there are credentials at play, please take a look at the corresponding documentations
 
-* :doc:`Credentials </exegol-image/credentials>`
-* :doc:`Ports & services </exegol-image/services>`
+* :doc:`Credentials </mandalore-image/credentials>`
+* :doc:`Ports & services </mandalore-image/services>`
 
 Multi-architecture builds
 -------------------------
 
-Know that Exegol images are built by, and for, AMD64 and ARM64 systems. Most systems are AMD64 (x86_64), but some other people use ARM64 (M1/M2 Apple Sillicon chips, 64bits Raspberry-Pies, ...).
+Know that Mandalore images are built by, and for, AMD64 and ARM64 systems. Most systems are AMD64 (x86_64), but some other people use ARM64 (M1/M2 Apple Sillicon chips, 64bits Raspberry-Pies, ...).
 Whenever possible, try to make sure your tool install function works for both architectures.
 Rest assured, if you don't have both architectures at your disposal it's perfectly fine, we'll take care of this part for you.
 If you do, and if your tool installation function includes some commands that differ wether they run on an ARM64 or AMD64 host, you can use the following structure.
@@ -279,30 +265,26 @@ Submitting the pull request
 .. hint::
 
     Once all your changes are over, and before submitting a pull request, it is advised to test your installation process locally.
-    The Exegol wrapper can be used to build local images. Run ``exegol install --help`` to see some examples.
-    You can also run the unit tests yourself by creating
+    The images can be built with the ``Makefile`` of the `mandalore-images <https://github.com/ghecko/mandalore-images>`_ repository (see its README, e.g. ``make base && make full``), or with the Mandalore wrapper (run ``mandalore install --help`` to see some examples).
+
+    The test commands registered with ``add-test-command`` in the install functions are gathered in ``/.mandalore/unit_tests_all_commands.txt`` inside the built image: they can be run from a container to check that your tool works.
 
     ..  code-block:: bash
 
-        # build the local image
-        exegol install "testimage" "full" --build-log "/tmp/testimage.log"
-
         # create and start a container for the tests
-        exegol start "testcontainer" "testimage"
+        mandalore start "testcontainer" "testimage"
 
-        # run the tests (from the container)
-        cat /.exegol/build_pipeline_tests/all_commands.txt | grep -vE "^\s*$" | sort -u > /.exegol/build_pipeline_tests/all_commands.sorted.txt
-        python3 /.exegol/build_pipeline_tests/run_tests.py
-        cat /.exegol/build_pipeline_tests/failed_commands.log
+        # (from the container) list the test commands
+        sort -u /.mandalore/unit_tests_all_commands.txt
 
 .. warning::
 
-    Your pull request needs to be made against the ``dev`` branch.
+    Your pull request needs to be made against the default branch of the repository.
 
 Once you submit your pull request, and once the various changes that may be requested are made, a CI/CD pipeline will run to make sure your code is compliant and that the tool is installed and works as intended.
 The pipeline may raise some issues, but if they're not related to your tool (e.g. network issues are common) don't worry about it. If the errors are due to your tool install, then you'll need to make the necessary changes to make your install work.
 
-Once everything works, the pull request will be merged, the pipeline will run again in order to test, build and publish a new ``nightly`` image. Congrats, you're now an Exegol contributor!
+Once everything works, the pull request will be merged and the change will be part of the next published images. Congrats, you're now a Mandalore contributor!
 
 Temporary fixing a tool (a.k.a. tempfix)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -315,7 +297,7 @@ Tools sometimes have their own issues along their development. A temporary fix c
 
         Applying the temporary fix for a tool installed through git goes as follows when checking out a previous commit
 
-        #. Find the commit id that made the tool install fail. This can be found in a try & repeat manner by installing the tool in an exegol container, checking out on a commit ID, try installing again, and repeat until it works.
+        #. Find the commit id that made the tool install fail. This can be found in a try & repeat manner by installing the tool in a mandalore container, checking out on a commit ID, try installing again, and repeat until it works.
         #. Comment out the inital ``git clone`` command.
         #. Add the temporary fix (``git clone`` and ``git checkout``) in a if statement that makes sure the fix won't stay there forever. The error message will be raised and noticed in the pipeline.
         #. (bonus) create an issue on the repo (if it doesn't exist already) with the appropriate logs to help the tool's maintainers notice the installation error and fix it.
@@ -365,14 +347,19 @@ Adding to my-resources
 
 .. hint::
 
-    This documentation is not written yet... Please contact us if you would like to contribute to this part and don't know how.
+    This documentation is not written yet... Please open an issue if you would like to contribute to this part and don't know how.
 
 Wrapper
 =======
 
-.. hint::
+The wrapper requires Python 3.10+. Before opening a pull request, run the type checks and the unit tests from the wrapper repository:
 
-    This documentation is not written yet... Please contact us if you would like to contribute to this part and don't know how.
+.. code-block:: bash
+
+    python3 -m pip install -r requirements.txt mypy pytest
+    mypy ./mandalore/ --ignore-missing-imports --check-untyped-defs
+    mypy ./mandalore.py --ignore-missing-imports --check-untyped-defs
+    python3 -m pytest
 
 
 Signing commits
@@ -386,7 +373,7 @@ Using signatures for commits on GitHub serves several important purposes :
 * **Trust**: this ensures that all contributions come from trusted sources.
 * **Visibility**: on GitHub, signed commits are marked with a "verified" label, giving users and collaborators confidence in the commit's origin and integrity.
 
-GitHub offers `an official documentation <https://docs.github.com/fr/authentication/managing-commit-signature-verification/signing-commits>`_ on the matter that can be followed to setup and sign commits properly. Exegol's documentation will sum it up briefly and link to it whenever it's needed.
+GitHub offers `an official documentation <https://docs.github.com/fr/authentication/managing-commit-signature-verification/signing-commits>`_ on the matter that can be followed to setup and sign commits properly. Mandalore's documentation will sum it up briefly and link to it whenever it's needed.
 
 While **SSH (+ FIDO2)** is preferred since it offers better multi-factor signing capabilities (knowledge + hardware possession factors), people that don't have the required hardware can proceed with GPG or SSH.
 
@@ -574,4 +561,4 @@ While **SSH (+ FIDO2)** is preferred since it offers better multi-factor signing
 
 .. hint::
 
-    The contributor's GitHub account can be configured to mark unsigned commits as unverified or partially verified. While it's not mandatory regarding contributions to Exegol since the requirement is managed on Exegol repositories directly, it's a nice thing to do. See GitHub's documentation on `Vigilante mode <https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits>`_.
+    The contributor's GitHub account can be configured to mark unsigned commits as unverified or partially verified. While it's not mandatory regarding contributions to Mandalore since the requirement is managed on Mandalore repositories directly, it's a nice thing to do. See GitHub's documentation on `Vigilante mode <https://docs.github.com/en/authentication/managing-commit-signature-verification/displaying-verification-statuses-for-all-of-your-commits>`_.

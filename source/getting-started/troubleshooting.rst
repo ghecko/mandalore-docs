@@ -2,7 +2,7 @@
 Troubleshooting
 ===============
 
-Here are the most common problems encountered when installing and using Exegol.
+Here are the most common problems encountered when installing and using Mandalore.
 
 .. contents::
     :local:
@@ -23,10 +23,10 @@ There are multiple checks to do to make sure Docker works properly.
 
     .. tab:: Docker permissions
 
-        Make sure the Docker permissions are consistent with the Exegol permissions.
-        For instance, if you need ``sudo`` rights to use Docker, you'll most likely need ``sudo`` to run Exegol smoothly.
+        Make sure the Docker permissions are consistent with the Mandalore permissions.
+        For instance, if you need ``sudo`` rights to use Docker, you'll most likely need ``sudo`` to run Mandalore smoothly.
 
-        See :ref:`the Exegol install guidance<install_exegol_privileges>` to use exegol correctly with sudo.
+        See :ref:`the Mandalore install guidance<install_mandalore_privileges>` to use mandalore correctly with sudo.
 
     .. tab:: Docker socket
 
@@ -55,13 +55,13 @@ How do I get X11 to work on a non-Linux host?
 
 X11, or X Window System, is a graphical windowing system that provides a framework for creating and managing graphical user interfaces (GUIs) in Unix-like operating systems.
 
-X11 sharing between an Exegol container and a host allows a graphical application running within the container to display its GUI on the host's X11 server. This means you can run graphical applications in Exegol containers and have them appear as if they were running directly on the host machine. It enables the execution of GUI-based applications in isolated containers while interacting with them through the host's graphical interface.
+X11 sharing between a Mandalore container and a host allows a graphical application running within the container to display its GUI on the host's X11 server. This means you can run graphical applications in Mandalore containers and have them appear as if they were running directly on the host machine. It enables the execution of GUI-based applications in isolated containers while interacting with them through the host's graphical interface.
 
 For macOS users, XQuartz is needed. It's listed in the :ref:`install requirements <install_requirements>`.
 
 .. note::
 
-    Exegol's wrapper automatically starts XQuartz on macOS hosts when needed. But if for some reason it gets manually closed by the users while a container is running, X11 sharing will not work. Restarting the container with ``exegol restart <container>`` will restart XQuartz automatically if needed.
+    Mandalore's wrapper automatically starts XQuartz on macOS hosts when needed. But if for some reason it gets manually closed by the users while a container is running, X11 sharing will not work. Restarting the container with ``mandalore restart <container>`` will restart XQuartz automatically if needed.
 
 How to fix ``Docker download error: unauthorized: authentication required``
 ===========================================================================
@@ -83,7 +83,7 @@ How to fix ``Docker download error: no space left on device``
 
     <br>
 
-Exegol images can be quite large, with some reaching over ``50GB``. This can quickly exceed the available virtual disk space, even if your physical disk still has free space. To resolve this issue, you need to allocate more space to the Docker Desktop virtual disk.
+Mandalore images can be quite large, with some reaching over ``50GB``. This can quickly exceed the available virtual disk space, even if your physical disk still has free space. To resolve this issue, you need to allocate more space to the Docker Desktop virtual disk.
 
 To increase the ``virtual disk size``, open Docker Desktop and go to ``Settings -> Resources -> Advanced``. Locate the ``Virtual disk limit`` option and increase the allocated size. Make sure to choose a value that provides enough space for your images and containers, such as ``128GB`` or more depending on your needs.
 
@@ -101,29 +101,29 @@ Apply the changes and then ``restart`` Docker Desktop to ensure the new configur
 How to fix CRLF errors on Windows
 =================================
 
-If you have cloned the Exegol repository on Windows, you may encounter errors when launching your container, for example:
+If you have cloned the Mandalore repository on Windows, you may encounter errors when launching your container, for example:
 
 .. code-block::
 
-    /.exegol/entrypoint.sh: line 3: trap: SIGTERM
+    /.mandalore/entrypoint.sh: line 3: trap: SIGTERM
     : invalid signal specification
-    /.exegol/entrypoint.sh: line 4: $'\r': command not found
-    /.exegol/entrypoint.sh: line 5: syntax error near unexpected token $'{\r''
-    /.exegol/entrypoint.sh: line 5: function exegol_init() {
+    /.mandalore/entrypoint.sh: line 4: $'\r': command not found
+    /.mandalore/entrypoint.sh: line 5: syntax error near unexpected token $'{\r''
+    /.mandalore/entrypoint.sh: line 5: function load_setups() {
 
 This is caused by the automatic addition of CRLF linefeed by Windows to ensure compatibility.
-To correct this problem, simply disable this feature on the Exegol repository and reload the file of the repository:
+To correct this problem, simply disable this feature on the Mandalore repository and reload the file of the repository:
 
 .. code-block:: bash
 
-    cd ./Exegol
+    cd ./mandalore
     git config core.autocrlf false
     git rm -rf --cached .
     git reset --hard HEAD
 
 How to fix the error ``This environment is externally managed``
 ===============================================================
-When installing exegol with ``python3 -m pip install exegol`` on modern operating systems (Ubuntu 23.04 and higher, Debian 12 and higher, macOS 14+), you may encounter the following error:
+When installing mandalore with ``python3 -m pip install`` (e.g. ``python3 -m pip install "git+https://github.com/ghecko/mandalore"``) on modern operating systems (Ubuntu 23.04 and higher, Debian 12 and higher, macOS 14+), you may encounter the following error:
 
 .. code-block::
 
@@ -152,13 +152,15 @@ To resolve this issue, you have two options :
 
    .. tab:: Recommended Methods
 
-      **Using pipx (Preferred)**
+      **Using uv or pipx (Preferred)**
 
-      The recommended way to install Exegol is using ``pipx``, which automatically handles virtual environment creation:
+      The recommended way to install Mandalore is using ``uv tool`` or ``pipx``, which automatically handle the virtual environment creation:
 
       .. code-block:: bash
 
-          pipx install exegol
+          uv tool install "git+https://github.com/ghecko/mandalore"
+          # OR
+          pipx install "git+https://github.com/ghecko/mandalore"
 
       **Manual Virtual Environment**
 
@@ -168,7 +170,7 @@ To resolve this issue, you have two options :
 
           python3 -m venv path/to/venv
           source path/to/venv/bin/activate
-          python3 -m pip install exegol
+          python3 -m pip install "git+https://github.com/ghecko/mandalore"
 
    .. tab:: Other Methods
 
@@ -182,7 +184,7 @@ To resolve this issue, you have two options :
 
       .. code-block:: bash
 
-          python3 -m pip install --user exegol
+          python3 -m pip install --user "git+https://github.com/ghecko/mandalore"
 
       **System-wide Installation**
 
@@ -190,14 +192,14 @@ To resolve this issue, you have two options :
 
       .. code-block:: bash
 
-          python3 -m pip install exegol --break-system-site-packages
+          python3 -m pip install "git+https://github.com/ghecko/mandalore" --break-system-packages
 
 Arsenal needs TIOCSTI enable for running
 ========================================
 
 The arsenal tool needs the ``TIOCSTI`` functionality enabled. A GitHub issue exists to request an evolution: https://github.com/Orange-Cyberdefense/arsenal/issues/77.
 
-This feature cannot be enabled only in exegol containers (docker limitation), it must be configured in the host with the following command:
+This feature cannot be enabled only in mandalore containers (docker limitation), it must be configured in the host with the following command:
 
 .. code-block::
 

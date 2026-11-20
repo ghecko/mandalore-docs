@@ -3,4 +3,3 @@ sphinx_rtd_theme
 sphinx-tabs
 sphinx-copybutton
 sphinxcontrib-jquery
-sphinxcontrib-googleanalytics
