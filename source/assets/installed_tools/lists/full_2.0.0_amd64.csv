@@ -306,7 +306,7 @@ sliver,https://github.com/BishopFox/sliver,Open source / cross-platform and exte
 smali,https://github.com/JesusFreke/smali,A tool to disassemble and assemble Android's dex files
 smartbrute,https://github.com/ShutdownRepo/SmartBrute,The smart password spraying and bruteforcing tool for Active Directory Domain Services.
 smbclient,https://github.com/samba-team/samba,SMBclient is a command-line utility that allows you to access Windows shared resources
-smbclient-ng,https://github.com/TheManticoreProject/smbclientng,A fast, cross-platform and user friendly way to interact with SMB shares (Go rewrite).
+smbclient-ng,https://github.com/TheManticoreProject/smbclientng,"A fast, cross-platform and user friendly way to interact with SMB shares (Go rewrite)."
 smtp-user-enum,https://github.com/pentestmonkey/smtp-user-enum,A tool to enumerate email addresses via SMTP
 SoapUI,https://github.com/SmartBear/soapui,SoapUI is the world's leading testing tool for API testing.
 spiderfoot,https://github.com/smicallef/spiderfoot,A reconnaissance tool that automatically queries over 100 public data sources
@@ -361,7 +361,7 @@ wesng,https://github.com/bitsadmin/wesng,WES-NG is a tool based on the output of
 whatportis,https://github.com/ncrocfer/whatportis,Command-line tool to lookup port information
 whatweb,https://github.com/urbanadventurer/WhatWeb,Next generation web scanner that identifies what websites are running.
 whois,https://packages.debian.org/sid/whois,See information about a specific domain name or IP address.
-wifit3,https://github.com/derv82/wifit3,Standalone USB Wi-Fi auditor (handshakes, PMKID, WPS, WEP) with built-in userspace drivers.
+wifit3,https://github.com/derv82/wifit3,"Standalone USB Wi-Fi auditor (handshakes, PMKID, WPS, WEP) with built-in userspace drivers."
 wifite2,https://github.com/kimocoder/wifite2,Rewrite of the popular wireless network auditor (originally by derv82).
 windapsearch-go,https://github.com/ropnop/go-windapsearch/,Active Directory enumeration tool.
 wireshark,https://github.com/wireshark/wireshark,Wireshark is a network protocol analyzer that lets you see what’s happening on your network at a microscopic level.
