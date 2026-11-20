@@ -12,10 +12,10 @@ Opening issues
 
 Create an issue in the correct repository:
 
-* For any problem concerning `Exegol WRAPPER <https://github.com/ThePorgs/Exegol/issues>`__ (the exegol command).
-* For any problem concerning `Exegol IMAGE <https://github.com/ThePorgs/Exegol-images/issues>`__ (the exegol environment).
-* For any problem concerning `Exegol RESOURCE <https://github.com/ThePorgs/Exegol-resources/issues>`__ (the exegol offline resources).
-* For any problem concerning `Exegol DOCUMENTATION <https://github.com/ThePorgs/Exegol-docs/issues>`__ (the exegol documentation).
+* For any problem concerning `Exegol WRAPPER <https://github.com/ghecko/mandalore/issues>`__ (the exegol command).
+* For any problem concerning `Exegol IMAGE <https://github.com/ghecko/mandalore-images/issues>`__ (the exegol environment).
+* For any problem concerning `Exegol RESOURCE <https://github.com/ghecko/mandalore-resources/issues>`__ (the exegol offline resources).
+* For any problem concerning `Exegol DOCUMENTATION <https://github.com/ghecko/mandalore-docs/issues>`__ (the exegol documentation).
 
 Roadmap
 =======

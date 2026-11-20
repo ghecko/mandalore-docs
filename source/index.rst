@@ -12,8 +12,8 @@ Exegol: professional hacking setup
       <img alt="Python3.7" src="https://img.shields.io/badge/Python-3.7+-informational">
       <img alt="latest commit on master" src="https://img.shields.io/docker/pulls/nwodtuhs/exegol.svg?label=downloads">
       <br><br>
-      <img alt="latest commit on master" src="https://img.shields.io/github/last-commit/ThePorgs/Exegol/master?label=latest%20release">
-      <img alt="latest commit on dev" src="https://img.shields.io/github/last-commit/ThePorgs/Exegol/dev?label=latest%20dev">
+      <img alt="latest commit on master" src="https://img.shields.io/github/last-commit/ghecko/mandalore/master?label=latest%20release">
+      <img alt="latest commit on dev" src="https://img.shields.io/github/last-commit/ghecko/mandalore/dev?label=latest%20dev">
       <br><br>
       <img alt="current version" src="https://img.shields.io/badge/linux-supported-success">
       <img alt="current version" src="https://img.shields.io/badge/windows-supported-success">
@@ -49,7 +49,7 @@ Exegol fits pentesters, CTF players, bug bounty hunters, researchers, beginners 
 
 .. warning::
 
-   This documentation is a work in progress. We are actively writing it, but if there are things you'd like to be documented in priority, feel free to request in on the `GitHub Repo <https://github.com/ThePorgs/Exegol-docs>`_ or in the `Discord server <https://discord.gg/cXThyp7D6P>`_.
+   This documentation is a work in progress. We are actively writing it, but if there are things you'd like to be documented in priority, feel free to request in on the `GitHub Repo <https://github.com/ghecko/mandalore-docs>`_ or in the `Discord server <https://discord.gg/cXThyp7D6P>`_.
 
 The Exegol project
 ------------------
@@ -84,7 +84,7 @@ Have a bug report or feature request? Either open an issue on the `Exegol repo`_
 
 Wanna chat? Need help? Join us on the `Exegol discord`_!
 
-.. _Exegol repo: https://github.com/ThePorgs/Exegol
+.. _Exegol repo: https://github.com/ghecko/mandalore
 .. _Exegol discord: https://discord.gg/cXThyp7D6P
 
 .. toctree::

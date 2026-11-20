@@ -108,7 +108,7 @@ Exemple to release version ``4.3.5``:
     git tag -s 4.3.5 -m '4.3.5'
     git push --tags
 
-Check if the release pipeline works as expected: `Release pipeline <https://github.com/ThePorgs/Exegol/actions/workflows/entrypoint_release.yml>`_
+Check if the release pipeline works as expected: `Release pipeline <https://github.com/ghecko/mandalore/actions/workflows/entrypoint_release.yml>`_
 
 Post deploy
 -----------
@@ -134,7 +134,7 @@ Images release
 ==============
 
 .. hint::
-    The images documentation must be aligned with the images features. Make sure to add code to the appropriate `Exegol docs <https://github.com/ThePorgs/Exegol-docs>`_ branch and have a pull request ready. The docs PR can be merged once the images are released.
+    The images documentation must be aligned with the images features. Make sure to add code to the appropriate `Exegol docs <https://github.com/ghecko/mandalore-docs>`_ branch and have a pull request ready. The docs PR can be merged once the images are released.
 
 Prepare changes
 ---------------
@@ -184,7 +184,7 @@ Maintainers needs to make sure workflow goes as planned and images end up in the
 Publish release
 ---------------
 
-The final step is to create a "release" in github (https://github.com/ThePorgs/Exegol-images/releases/new).
+The final step is to create a "release" in github (https://github.com/ghecko/mandalore-images/releases/new).
 
 1. The release must point to the tag created before.
 
@@ -259,9 +259,9 @@ In order to allow this, GitHub Actions can be set up with secrets that the runne
 
 Once the token is created, it can be added as follows:
 
-- For Exegol-images, go to the `Exegol-images repo settings > secrets > actions <https://github.com/ThePorgs/Exegol-images/settings/secrets/actions>`_. At the time of writing, 11 Feb. 2023, Dockerhub secrets are named ``DOCKER_USERNAME`` and ``DOCKER_PASSWORD`` in the workflows.
+- For Exegol-images, go to the `Exegol-images repo settings > secrets > actions <https://github.com/ghecko/mandalore-images/settings/secrets/actions>`_. At the time of writing, 11 Feb. 2023, Dockerhub secrets are named ``DOCKER_USERNAME`` and ``DOCKER_PASSWORD`` in the workflows.
 
-- For the Python wrapper, go to the `Exegol repo settings > secrets > actions <https://github.com/ThePorgs/Exegol/settings/secrets/actions>`_. At the time of writing, 11 Feb. 2023, the PyPI token is named ``PYPI_API_TOKEN`` in the workflows.
+- For the Python wrapper, go to the `Exegol repo settings > secrets > actions <https://github.com/ghecko/mandalore/settings/secrets/actions>`_. At the time of writing, 11 Feb. 2023, the PyPI token is named ``PYPI_API_TOKEN`` in the workflows.
 
 2. Deploying a runner
 ~~~~~~~~~~~~~~~~~~~~~
@@ -315,7 +315,7 @@ Before deploying a GHA agent on a runner, software requirements must be met:
 
         Once the requirements are met, the agent can be deployed as follows (with sufficient permissions in the GitHub repository):
 
-        * go to https://github.com/ThePorgs/Exegol-images/settings/actions/runners
+        * go to https://github.com/ghecko/mandalore-images/settings/actions/runners
         * click on "New self-hosted runner"
         * select ``Linux`` as operating system, as well as the right architecture and follow the instructions
         * when running the ``config.sh`` script, the following settings must be set
@@ -335,13 +335,13 @@ Before deploying a GHA agent on a runner, software requirements must be met:
 
             .. code-block:: bash
 
-                sudo systemctl is-enabled actions.runner.ThePorgs-Exegol-images.<runner-name>.service
+                sudo systemctl is-enabled actions.runner.ghecko-mandalore-images.<runner-name>.service
 
             In order to start the service, either reboot the runner, or use ``systemctl``.
 
             .. code-block:: bash
 
-                sudo systemctl start actions.runner.ThePorgs-Exegol-images.<runner-name>.service
+                sudo systemctl start actions.runner.ghecko-mandalore-images.<runner-name>.service
 
         .. image:: /assets/maintainers/gha_deployment/step_1.png
            :align: center
@@ -384,7 +384,7 @@ Before deploying a GHA agent on a runner, software requirements must be met:
 
         Once the requirements are met, the agent can be deployed as follows (with sufficient permissions in the GitHub repository):
 
-        * go to https://github.com/ThePorgs/Exegol-images/settings/actions/runners
+        * go to https://github.com/ghecko/mandalore-images/settings/actions/runners
         * click on "New self-hosted runner"
         * select ``macOS`` as operating system, as well as the right architecture and follow the instructions
         * when running the ``config.sh`` script, the following settings must be set
@@ -406,7 +406,7 @@ Before deploying a GHA agent on a runner, software requirements must be met:
 3. Checking runners status
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Go to https://github.com/ThePorgs/Exegol-images/settings/actions/runners
+Go to https://github.com/ghecko/mandalore-images/settings/actions/runners
 
 4. Understanding the pipelines
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -453,7 +453,7 @@ When handling pull requests, maintainers may need to `synchronize a contributor'
 
     git clone "git@github.com:USER/FORK" "dest_dir"
     cd dest_dir
-    git remote add upstream "git@github.com:ThePorgs/REPO"
+    git remote add upstream "git@github.com:ghecko/REPO"
     git fetch upstream
     git checkout "TARGET_FORK_BRANCH"
     git merge --no-edit upstream/"ORIGIN_BRANCH"

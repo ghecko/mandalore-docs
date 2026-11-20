@@ -1,6 +1,6 @@
 
 > **📌 This repository hosts code for the Exegol documentation, a sub-repository of the Exegol project. 
-> If you were looking for Exegol, go to [the main repo](https://github.com/ThePorgs/Exegol)**
+> If you were looking for Exegol, go to [the main repo](https://github.com/ghecko/mandalore)**
 ___
 
 # Exegol docs
